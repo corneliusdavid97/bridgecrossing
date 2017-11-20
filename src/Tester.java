@@ -1,4 +1,5 @@
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -19,8 +20,11 @@ public class Tester {
         for (int i = 0; i < n; i++) {
             arr[i]=new Person(false, sc.nextInt());
         }
+        Arrays.sort(arr);
         Tree t=new Tree(arr);
         Solver s=new Solver(t);
-        System.out.println(s.solve());
+        State res=s.solve();
+        System.out.println(res.getCost());
+        System.out.println(s.getPath(res));
     }
 }

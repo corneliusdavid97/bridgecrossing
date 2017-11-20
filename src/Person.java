@@ -8,7 +8,7 @@
  *
  * @author Cornelius David
  */
-public class Person {
+public class Person implements Comparable<Person>{
     private boolean position; //false:kiri, true:kanan
     private int time;
 
@@ -28,4 +28,10 @@ public class Person {
     public void move(){
         this.position=!this.position;
     }
+
+    @Override
+    public int compareTo(Person o) {
+        return this.time-o.time;
+    }
+    
 }

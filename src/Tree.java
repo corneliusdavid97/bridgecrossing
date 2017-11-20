@@ -12,7 +12,7 @@ public class Tree {
      State root;
 
     public Tree(Person[] arr) {
-        root=new State(arr, false,0);
+        root=new State(arr, false,0,null);
     }
     
 }

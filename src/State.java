@@ -16,12 +16,24 @@ public class State implements Comparable<State>{
     private Person[] current; //false:left, true:right
     private boolean lanternPos; //false:left, true:right
     private int cost;
+    private int hn;
+    private State parent;
     
-    public State(Person[] current, boolean lanternPos, int cost) {
+    public State(Person[] current, boolean lanternPos, int cost, State parent) {
         this.children = new LinkedList<>();
         this.current = current;
         this.lanternPos = lanternPos;
-        this.cost = cost;
+        int min=Integer.MAX_VALUE,max=Integer.MIN_VALUE;
+        for (int i = 0; i < current.length; i++) {
+            if(current[i].getPosition()==false){
+                max=max<current[i].getTime()?current[i].getTime():max;
+            }else{
+                min=min>current[i].getTime()?current[i].getTime():min;
+            }
+        }
+        this.hn=min+max;
+        this.cost = cost+this.hn;
+        this.parent=parent;
     }
 
     public LinkedList<State> generateChild() {
@@ -37,7 +49,7 @@ public class State implements Comparable<State>{
                             && tmp[j].getPosition() == this.lanternPos) {
                         tmp[i].move();
                         tmp[j].move();
-                        this.children.add(new State(tmp, !lanternPos, Math.max(current[i].getTime(), current[j].getTime())+cost));
+                        this.children.add(new State(tmp, !lanternPos, Math.max(current[i].getTime(), current[j].getTime())+cost,this));
                     }
                 }
             } else {
@@ -47,7 +59,7 @@ public class State implements Comparable<State>{
                 }
                 if (tmp[i].getPosition() == this.lanternPos) {
                     tmp[i].move();
-                    this.children.add(new State(tmp, !lanternPos, current[i].getTime()+cost));
+                    this.children.add(new State(tmp, !lanternPos, current[i].getTime()+cost,this));
                 }
             }
 
@@ -81,5 +93,9 @@ public class State implements Comparable<State>{
 
     public int getCost() {
         return cost;
+    }
+
+    public State getParent() {
+        return parent;
     }
 }
