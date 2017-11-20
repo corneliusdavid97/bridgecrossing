@@ -16,6 +16,12 @@ public class Tester {
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
         int n=sc.nextInt();
+        if(n==1){
+            int tmp=sc.nextInt();
+            System.out.println(tmp);
+            System.out.println(tmp);
+            return;
+        }
         Person[] arr=new Person[n];
         for (int i = 0; i < n; i++) {
             arr[i]=new Person(false, sc.nextInt());
@@ -24,7 +30,6 @@ public class Tester {
         Tree t=new Tree(arr);
         Solver s=new Solver(t);
         State res=s.solve();
-        System.out.println(res.getCost());
         System.out.println(s.getPath(res));
     }
 }

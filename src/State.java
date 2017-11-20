@@ -32,7 +32,7 @@ public class State implements Comparable<State>{
             }
         }
         this.hn=min+max;
-        this.cost = cost+this.hn;
+        this.cost = cost+hn;
         this.parent=parent;
     }
 
@@ -81,7 +81,10 @@ public class State implements Comparable<State>{
 
     @Override
     public int compareTo(State o) {
-        return this.cost - o.cost;
+        if(this.cost==o.cost){
+            return (this.cost-hn)-(o.cost-o.hn);
+        }
+        return this.cost-o.cost;
     }
     
     public boolean isGoal(){

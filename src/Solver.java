@@ -49,20 +49,24 @@ public class Solver {
             current=current.getParent();
         }
         current=stack.pop();
+        int total=0;
         while(!stack.empty()){
             State child=stack.empty()?null:stack.peek();
+            int max=Integer.MIN_VALUE;
             if(child!=null){
                 for (int i = 0; i < current.getCurrent().length; i++) {
                     if(current.getCurrent()[i].getPosition()!=child.getCurrent()[i].getPosition()){
                         res+=current.getCurrent()[i].getTime();
                         res+=" ";
+                        max=max<current.getCurrent()[i].getTime()?current.getCurrent()[i].getTime():max;
                     }
                 }
+                total+=max;
             }
             current=stack.empty()?null:stack.pop();
             res+="\n";
         }
-        return res;
+        return total+"\n"+res;
     }
         
 }
