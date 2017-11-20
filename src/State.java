@@ -25,7 +25,7 @@ public class State implements Comparable<State>{
         this.lanternPos = lanternPos;
         int min=Integer.MAX_VALUE,max=Integer.MIN_VALUE;
         for (int i = 0; i < current.length; i++) {
-            if(current[i].getPosition()==false){
+            if(current[i].getPosition()==true){
                 max=max<current[i].getTime()?current[i].getTime():max;
             }else{
                 min=min>current[i].getTime()?current[i].getTime():min;
