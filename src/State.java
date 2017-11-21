@@ -26,15 +26,15 @@ public class State implements Comparable<State> {
         int min = -1, max = -1;
         for (int i = 0; i < current.length; i++) {
             if (current[i].getPosition() == false) {
-                max = max==-1?current[i].getTime():max < current[i].getTime() ? current[i].getTime() : max;
+                max = max == -1 ? current[i].getTime() : max < current[i].getTime() ? current[i].getTime() : max;
             } else {
-                min = min==-1?current[i].getTime():min > current[i].getTime() ? current[i].getTime() : min;
+                min = min == -1 ? current[i].getTime() : min > current[i].getTime() ? current[i].getTime() : min;
             }
         }
-        max=max==-1?0:max;
-        min=min==-1?0:min;
-        this.hn = min+max;
-        this.cost = cost + hn;
+        max = max == -1 ? 0 : max;
+        min = min == -1 ? 0 : min;
+        this.hn = min + max;
+        this.cost = cost;
         this.parent = parent;
     }
 
@@ -86,10 +86,7 @@ public class State implements Comparable<State> {
 
     @Override
     public int compareTo(State o) {
-        if (this.cost == o.cost) {
-            return (this.cost - hn) - (o.cost - o.hn);
-        }
-        return this.cost - o.cost;
+        return (this.cost+this.hn) - (o.cost+o.hn);
     }
 
     public boolean isGoal() {
@@ -120,14 +117,13 @@ public class State implements Comparable<State> {
     public void setHn(int hn) {
         this.hn = hn;
     }
-    
 
     public String getBitString() {
         String res = "";
         for (int i = 0; i < current.length; i++) {
             res += current[i].getPosition() ? 1 : 0;
         }
-        res+=lanternPos?"a":"b";
+        res += lanternPos ? "right" : "left";
         return res;
     }
 }

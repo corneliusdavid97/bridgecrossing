@@ -26,9 +26,10 @@ public class Solver {
     }
 
     public State solve() {
-        this.pq.add(tree.root);
+        this.pq.offer(tree.root);
         while (!pq.isEmpty()) {
             State curState = pq.poll();
+//            System.out.println(curState.getBitString());
             if (curState.isGoal()) {
                 return curState;
             }
@@ -36,17 +37,17 @@ public class Solver {
             Iterator<State> it = children.iterator();
             while (it.hasNext()) {
                 State s = it.next();
-//                pq.add(s);
+//                System.out.println(s.getBitString());
+//                pq.offer(s);
                 if (!Tree.bitstringSet.contains(s.getBitString())) {
-                    pq.add(s);
+                    pq.offer(s);
                     Tree.bitstringSet.add(s.getBitString());
                 } else {
-                    boolean found = false;
                     for (State st : pq) {
                         if (st.getBitString().equals(s.getBitString())) {
                             if (s.getCost() < st.getCost()) {
                                 pq.remove(st);
-                                pq.add(s);
+                                pq.offer(s);
                             }
                             break;
                         }
